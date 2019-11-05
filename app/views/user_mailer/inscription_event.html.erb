@@ -6,7 +6,7 @@
   <body>
     <h1>Salut <%= @admin.first_name %>  <%= @admin.last_name %> ! !</h1>
     <p>
-      Bravo ! tu as un nouvel inscrit à ton event <%= @user.first_name %>.
+      Bravo ! tu as un nouvel inscrit à ton event <%= @attendance.event.title %>. Il s'agit de <%= @attendance.user.first_name %>.
     </p>
     <p>
       Pour accéder à ton espace client, connecte-toi via : <%= @url %>.

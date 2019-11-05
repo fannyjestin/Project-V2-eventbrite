@@ -8,11 +8,11 @@
 
 20.times do |x|
    fname = Faker::Name.first_name
-	  User.create(
-	  description: Faker::Quote.famous_last_words, 
+    User.create(
       first_name: fname,
+      description: Faker::Lorem.paragraph_by_chars(number: 200, supplemental: false),
       last_name: Faker::Name.last_name,
-	    email: fname + "@yopmail.com")
+      email: fname + "@yopmail.com")
       puts "Seeding of User nb #{x}"
 end 
 

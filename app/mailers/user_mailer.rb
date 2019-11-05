@@ -15,9 +15,12 @@ class UserMailer < ApplicationMailer
 
   def inscription_event(attendance)
   	@attendance = attendance
+
+    #on récupère l'instance user pour ensuite pouvoir la passer à la view en @user
+    @admin = User.find(@attendance.event.admin_id)
   	@url = 'https://fannyfashion.herokuapp.com/'
 
-    mail(to: @attendance.event.admin.email, subject: 'Une nouvelle inscription à votre event !') 
+    mail(to: @admin.email, subject: 'Une nouvelle inscription à votre event !') 
 
   end
 
