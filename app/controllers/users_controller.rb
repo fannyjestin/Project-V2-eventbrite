@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
-before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
+  before_action :is_owner, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
@@ -84,7 +86,20 @@ before_action :set_user, only: [:show, :edit, :update, :destroy]
     def user_params
       params.fetch(:user, {})
     end
+    
+   def authenticate_user
+      unless current_user 
+        flash[:danger] = "This section requires to be logged-in. Please log in."
+        redirect_to new_user_session_url
+      end
+    end
 
+    def is_owner
+      if current_user.id.to_i != params[:id].to_i
+        flash[:danger] = "You can't acces this page"
+        redirect_to "/"
+      end
+    end
 end
 
 

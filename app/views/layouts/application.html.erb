@@ -68,7 +68,11 @@
 
 
 
+<!-- FLASH MESSAGES -->
 
+    <% flash.each do |key, value| %>
+      <%= content_tag :div, value, class: "alert-#{key}" %>
+    <% end %>
 
 
     <%= yield %>
