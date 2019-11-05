@@ -10,6 +10,7 @@
    fname = Faker::Name.first_name
     User.create(
       first_name: fname,
+      password: 'azerty',
       description: Faker::Lorem.paragraph_by_chars(number: 200, supplemental: false),
       last_name: Faker::Name.last_name,
       email: fname + "@yopmail.com")
