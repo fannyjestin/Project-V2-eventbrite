@@ -1,0 +1,23 @@
+<!-- Header -->
+<header class="bg-primary text-center py-5 mb-4">
+  <div class="container">
+    <h1 class="font-weight-light text-white">Meet <%= @user.first_name %> <%= @user.last_name %> !</h1>
+  </div>
+</header>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="row">
+    <!-- Team Member 1 -->
+    <div class="col-xl-3 col-md-12 mb-8">
+      <div class="card border-0 shadow">
+        <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-0"> <%= @user.first_name %> <%= @user.last_name %> </h5> <br/>
+          <div class="card-text text-black-50"> <%= @user.description %> </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+<!-- /.container -->

@@ -15,12 +15,62 @@
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/journal/bootstrap.min.css" rel="stylesheet" integrity="sha384-ciphE0NCAlD2/N6NUApXAN2dAs/vcSAOTzyE202jJx3oS8n4tAQezRgnlHqcJ59C" crossorigin="anonymous">
 
 
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+
+
+
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<%= link_to "FANNY EVENT WEBSITE" , root_path, :class => "navbar-brand" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-link">
+      <%= link_to "L'équipe" , teams_path, :class => "nav_item active" %> <span class="sr-only">(current)</span>
+      </li>
+      <li class="nav-link">
+          <%= link_to "Contact", contacts_path, :class => "nav_item active" %>
+        </li>
+   
+      <form class="form-inline ml-5">
+        <%= link_to "Créer ton event !", new_event_path, class: "btn btn-primary"%>
+      </form>
+    </ul>
+
+
+    <ul class="navbar-nav justify-content-end">
+
+      <li class="nav-link">
+    <% if user_signed_in? %>
+       <%= link_to "Bienvenue " + current_user.first_name,  {controller: "users", action: "show", id: current_user.id}, :class => "nav_item active" %>
+    <% else %>
+      <%= link_to "S'inscrire", new_user_registration_path, :class => "nav_item active" %>
+     <% end %>  
+      </li>
+
+    <li class="nav-link">
+    <% if user_signed_in? %>
+      <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete , :class => "nav_item active"%>
+    <% else %>
+      <%= link_to "Se connecter", new_user_session_path, :class => "nav_item active" %>
+    <% end %> 
+      </li> 
+
+    </ul>       
+  </div>
+</nav>
+
+
+
+
+
+
     <%= yield %>
   </body>
 </html>
