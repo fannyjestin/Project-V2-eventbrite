@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-20.times do |x|
+10.times do |x|
    fname = Faker::Name.first_name
     User.create(
       first_name: fname,
@@ -34,7 +34,7 @@ t2 = Time.parse("2022-01-01 00:00:00")
   puts "Seeding of Event nb #{x}"
 end
 
-20.times do |x|
+15.times do |x|
    Attendance.create(
     user_id: User.all.sample.id,
     event_id: Event.all.sample.id)

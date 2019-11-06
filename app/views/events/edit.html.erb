@@ -3,7 +3,7 @@
     <div class="col-md-6 offset-md-3">
       <br><br><br>
 
-    <h1 class="h3 mb-3 font-weight-normal text-center">Créer ton event !</h1>
+    <h1 class="h3 mb-3 font-weight-normal text-center">Modifie ton event !</h1>
   <!-- FORMULAIRE DE CRÉATION D'UN EVENT -->
   <%= form_with model: @event, local: true,  html: { class: "form-signin mt-3" } do |f| %>
 
@@ -25,6 +25,9 @@
       <%= f.submit "Submit", class: "btn btn-lg btn-primary btn-block" %>
     </div>
   <%end%>
+<br/>
+
+<%= link_to "Supprimer", event_path, :class => "btn btn-lg btn-primary btn-block btn-danger", :data => {:confirm => "Êtes-vous sur?(e)"}, :method => :DELETE %>
 </div>
 
 <% if @event.errors.any? %>
@@ -42,7 +45,3 @@
 
 </div>
 </div>
-
-
-
-
