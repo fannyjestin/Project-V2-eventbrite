@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy, :create]
 
 
 
@@ -28,9 +28,10 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
-
+    @event.admin_id = current_user.id
     respond_to do |format|
       if @event.save
+      flash[:success]= "Ton évenement a bien été créé !"
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
@@ -64,14 +65,39 @@ class EventsController < ApplicationController
     end
   end
 
-  private
+
+    private
     # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.find(params[:id])
+    def set_user
+      @user = Event.find(params[:id]).admin_id
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.fetch(:event, {})
+      params.require(:event).permit(:start_date, :duration, :title, :price, :description, :location)
+    end
+    
+    #NOMBRE DE USER INSCRIT À L'EVENT
+      def count
+        Event.find(params[:id]).users.all.count
+      end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def user_params
+      params.fetch(:user, {})
+    end
+    
+   def authenticate_user
+      unless current_user 
+        flash[:danger] = "This section requires to be logged-in. Please log in."
+        redirect_to new_user_session_url
+      end
+    end
+
+    def is_owner
+      if current_user.id.to_i != Event.find(params[:id]).admin_id
+        flash[:danger] = "You can't acces this page"
+        redirect_to "/"
+      end
     end
 end

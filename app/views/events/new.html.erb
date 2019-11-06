@@ -1,29 +1,45 @@
-<div class ='align-middle text-center'>
-    <div class="col-md-5 offset-md-2">
-  <form action= "<%= root_path %>" method="POST">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <br><br><br>
 
-      <h3> Créé ton nouvel event !</h3>
-       <div class="row justify-content-center">
-    <p style = "width: 200px"> Titre : <input type="text" name="@event.title"></p>
-  </div>
-  <div class="row justify-content-center">
-    <p style = "width: 200px"> Location : <input type="text" name="location" value="<%= @event.location %>"> </p>
-  </div>
-  <div class="row justify-content-center">
-    <p style = "width: 200px"> Price : <input type="number" name="price" value="<%= @event.price %>"></p>
-  </div>
-  <div class="row justify-content-center">
-    <p style = "width: 200px"> Start Date format : ('YYYY-MM-DD HH:mm:ss') <input type="datetime" name="start_date" value="<%= @event.start_date %>"></p>
-  </div>
-  <div class="row justify-content-center">
-    <p style = "width: 200px">Duration (must be a multiple of 5): <input type="number" name="duration" value="<%= @event.duration %>"></p>
-  </div>
-  <div class="row justify-content-center">
-    <p style = "width: 200px"> Description : <input type="text" name="@event.description"></p>
-	</div>
-   <p><input type="submit" value="Valider"></p>
-	</form>		
+    <h1 class="h3 mb-3 font-weight-normal text-center">Créer ton event !</h1>
+  <!-- FORMULAIRE DE CRÉATION D'UN EVENT -->
+  <%= form_with model: @event, local: true,  html: { class: "form-signin mt-3" } do |f| %>
+
+
+    <p> Date de début :</br> <%= f.datetime_select :start_date, class: "form-control"%> </p>
+
+    <p> Durée (en minutes) :</br> <%= f.number_field :duration, step: 5, class: "form-control"%> </p>
+
+
+    <p> Description :</br> <%= f.text_field :description, class: "form-control"%> </p>
+    <p> Titre :</br> <%= f.text_field :title, class: "form-control"%> </p>
+
+
+    <p> Prix  :</br> <%= f.number_field :price, class: "form-control"%> </p>
+
+
+    <p> Lieu de l'Event :</br> <%= f.text_field :location, class: "form-control"%></p>
+    <div class="actions mt-5">
+      <%= f.submit "Submit", class: "btn btn-lg btn-primary btn-block" %>
+    </div>
+  <%end%>
+</div>
+
+<% if @event.errors.any? %>
+  <div class="alert alert-dismissible alert-warning">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong> Bah alors ?! </strong>
+  <p>Nous n'avons pas réussi à créer l'Event pour le/les raisons suivantes :</p>
+  <ul>
+    <% @event.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+</div>
+
 </div>
 </div>
 

@@ -30,39 +30,44 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    <ul class="navbar-nav mr-auto">
+      <div class="nav-item">
       <li class="nav-link">
       <%= link_to "L'équipe" , teams_path, :class => "nav_item active" %> <span class="sr-only">(current)</span>
       </li>
+      </div>
+      <div class="nav-item">
       <li class="nav-link">
           <%= link_to "Contact", contacts_path, :class => "nav_item active" %>
         </li>
-   
+       </div>
       <form class="form-inline ml-5">
         <%= link_to "Créer ton event !", new_event_path, class: "btn btn-primary"%>
-      </form>
-    </ul>
+       </form>
+      </ul>
 
 
-    <ul class="navbar-nav justify-content-end">
-
+      <ul class="navbar-nav justify-content-end">
+       <div class="nav-item">
+      <li class="nav-link">
+      <% if user_signed_in? %>
+       <%= link_to "Bienvenue " + current_user.first_name,  {controller: "users", action: "show", id: current_user.id}, :class => "nav_item active" %>
+       <% else %>
+      <%= link_to "S'inscrire", new_user_registration_path, :class => "nav_item active" %>
+      <% end %>  
+      </li>
+     </div>
+     <div class="nav-item">
       <li class="nav-link">
     <% if user_signed_in? %>
-       <%= link_to "Bienvenue " + current_user.first_name,  {controller: "users", action: "show", id: current_user.id}, :class => "nav_item active" %>
-    <% else %>
-      <%= link_to "S'inscrire", new_user_registration_path, :class => "nav_item active" %>
-     <% end %>  
-      </li>
-
-    <li class="nav-link">
-    <% if user_signed_in? %>
       <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete , :class => "nav_item active"%>
-    <% else %>
+     <% else %>
       <%= link_to "Se connecter", new_user_session_path, :class => "nav_item active" %>
     <% end %> 
       </li> 
-
-    </ul>       
+     </div>
+    </ul> 
+          
   </div>
 </nav>
 
