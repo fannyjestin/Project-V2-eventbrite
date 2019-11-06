@@ -1,6 +1,9 @@
 class ChargesController < ApplicationController
 
 def new
+  @price = Event.
+  @
+  @
 end
 
 def create
@@ -21,11 +24,8 @@ def create
 
 rescue Stripe::CardError => e
   flash[:error] = e.message
-  redirect_to new_charge_path
+  redirect_to event_path(params[:event_id])
 end
-
-
-
 
 	
 end

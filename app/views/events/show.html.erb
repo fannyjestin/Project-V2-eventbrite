@@ -7,11 +7,11 @@
       <div class="card-body">
         <h4 class="card-title"> <%= @event.title %> </h4>
         <p class="card-text"><%= @event.description %> </p>
-        <p class="btn btn-outline-primary">Crée par <%= link_to User.find(@event.admin_id).first_name , user_path(:id =>  User.find(@event.admin_id).id) %> </p>
+        <p class="btn btn-outline-primary">Crée par <%= link_to User.find(@event.admin_id).first_name , user_path(:id =>  User.find(@event.admin_id).id) %> , price <%= @event.price %> </p>
         <% if is_owner(@event) %>
         <p class="btn btn-lg btn-primary btn-block"> <%= link_to "Mon espace événement" , event_attendances_path(@event) %> </p>
         <% else %>
-         <p class="btn btn-lg btn-primary btn-block"> <%= link_to "Inscris toi !" , new_event_attendance_path(@event) %> </p>
+         <p class="btn btn-lg btn-primary btn-block"> <%= link_to "Inscris toi !" , new_charge_path(@event) %> </p>
         <% end %>
       </div>
     </div>
