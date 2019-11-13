@@ -33,7 +33,13 @@ class EventsController < ApplicationController
     @event.admin_id = current_user.id
     respond_to do |format|
       if @event.save
-      flash[:success]= "Ton évenement a bien été créé !"
+        if params[:avatar]
+        @event.avatar.attach(params[:avatar])
+      else
+        downloaded_image = open(Faker::LoremPixel.image(secure: false))
+        @event.avatar.attach(io: downloaded_image  , filename: "faker.jpg")
+      end
+        flash[:success]= "Ton évenement a bien été créé !"
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
@@ -49,6 +55,8 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     respond_to do |format|
       if @event.update(event_params)
+        @event.avatar.attach(params[:avatar])
+
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else

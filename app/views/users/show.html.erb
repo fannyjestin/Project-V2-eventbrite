@@ -13,11 +13,56 @@
       <div class="card border-0 shadow">
         <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="...">
         <div class="card-body text-center">
-          <h5 class="card-title mb-0"> <%= @user.first_name %> <%= @user.last_name %> </h5> <br/>
-          <div class="card-text text-black-50"> <%= @user.description %> </div>
-        </div>
+          <h2 class="card-title mb-0"> <%= @user.first_name %> <%= @user.last_name %> </h2> <br/>
       </div>
     </div>
+</div>
+</div>
+
+<!-- PROFIL INFOS -->
+
+
+
+<!-- Profile info -->
+
+<div class ='align-middle'>
+  <div class="card mt-5 ml-5 mr-5 p-4">
+    <div class="card-body">
+
+      <% if @user.avatar.attached? %>
+        <%= image_tag @user.avatar, alt: 'avatar' %>
+<%else%>
+  <p>=== Il n'y a pas encore d'avatar lié à cet utilisateur ===</p>
+      <% end  %>
+      <h5 class="card-title"><%= @user.first_name %> <%= @user.last_name %></h5>
+      <p class="card-title"><strong>Bio : </strong><%= @user.description %></p>
+      <p class="card-title"><strong>Mail : </strong> <%= @user.email %></p>
+      <p class="card-title"><strong>Profile created on : </strong><%= @user.created_at.strftime("%d/%m/%Y") %></p>
+      <p class="card-title"> <strong>Last update on : </strong><%= @user.updated_at.strftime("%d/%m/%Y") %></p></br></br>
+      <% if current_user.id == @user.id %>
+        <%= link_to 'Edit Basic Info', edit_user_path(@user) %>  |
+        <%= link_to "Edit your password", edit_user_registration_path(@user) %> |   
+        <%= link_to 'Destroy', users_path(@event), method: :delete, data: { confirm: 'Are you sure?' }  %>
+      <% end %>
 
 </div>
+</div>
+</div>
+
+<h3>Avatar actuel</h3>
+<%if @avatar.attached?%>
+  <%= image_tag @user.avatar, alt: 'avatar' %>
+<%else%>
+  <p>=== Il n'y a pas encore d'avatar lié à cet utilisateur ===</p>
+<%end%>
+
+
+<%= form_for [@user, @avatar], :url => user_avatar_url(@user) do |f| %>
+  <%= f.file_field_tag :avatar, placeholder: "Name" %>
+  <%= f.submit_tag "uploader l'avatar" %>
+<% end %>
+</div>
+</div>
+
+
 <!-- /.container -->

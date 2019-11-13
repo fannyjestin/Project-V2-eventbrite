@@ -5,10 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'open-uri'
+require 'faker'
 
 10.times do |x|
    fname = Faker::Name.first_name
-    User.create(
+    user = User.create(
       first_name: fname,
       password: 'azerty',
       description: Faker::Lorem.paragraph_by_chars(number: 200, supplemental: false),
@@ -23,7 +25,7 @@ t1 = Time.parse("2019-11-01 14:40:34")
 t2 = Time.parse("2022-01-01 00:00:00")
 
 2.times do |x|
-    Event.create(
+    event = Event.create(
     start_date: rand(t1..t2),
     duration: rand(5..100)*5,
     description: Faker::Lorem.paragraph_by_chars(number: 300, supplemental: false),
@@ -40,3 +42,7 @@ end
     event_id: Event.all.sample.id)
   puts "Seeding of Guest nb #{x}"
 end
+
+
+
+

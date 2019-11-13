@@ -1,0 +1,33 @@
+
+<section class="jumbotron">
+  <h1>WELCOME</h1>
+  <p>BEST WEBSITE TO FOLLOW YOUR FAVORITE EVENTS !</p>
+  <%=link_to "CREATE YOUR EVENT", new_event_path, class: "button" %>
+</section>
+
+  <div class="container">
+    <div class="row">
+      <p> <% @events.each do |event|  %> </p>
+        <div class="col-xs-12 col-md-4">
+           <div class="container-card">
+             <div class="card">
+                 <div class="card__image-container">
+                    <img class="card__image card-img" src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80" alt="">
+                      </div>
+                       <div class="card__content"><br/>
+                       <h4 class="card-title font-weight-bold mb-2">Event <%= link_to event.title , event_path(:id => event.id) %> <br/>
+                       Organisé par <%= link_to User.find(event.admin_id).first_name , user_path(:id =>  User.find(event.admin_id).id ) %></h4> 
+                       <p class="card-text"><i class="far fa-clock pr-2"></i>Crée le <%=event.created_at%></p>
+
+                     <p><%=event.description%></p>
+                      <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 collapsed" data-toggle="collapse" href="#collapseContent" aria-expanded="false" aria-controls="collapseContent"></a>
+                      <i class="fas fa-share-alt text-muted float-right p-1 my-1" data-toggle="tooltip" data-placement="top" title="Share this post"></i>
+                      <i class="fas fa-heart text-muted float-right p-1 my-1 mr-3" data-toggle="tooltip" data-placement="top" title="I like it"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% end %> 
+            </div>
+          </div>
+

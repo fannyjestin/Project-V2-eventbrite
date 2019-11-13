@@ -1,0 +1,18 @@
+<div class="container">
+	<div class="border_style">
+      <div class="card-img-body">
+      <img class="card-img" src="https://images.unsplash.com/photo-1535074153497-b08c5aa9c236?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d2aaf944a59f16fe1fe72f5057b3a7dd&auto=format&fit=crop&w=500&q=80" alt="Card image cap">
+      </div>
+      <div class="card-body">
+        <h4 class="card-title"><%= @event.title %></h4>
+        <p class="card-text"> <%= @event.description %> <br/> Crée par <%= link_to User.find(@event.admin_id).first_name , user_path(:id =>  User.find(@event.admin_id).id) %> , price <%= @event.price %> </p>
+         <% if is_owner(@event) %>
+        <p class="btn btn-lg btn-primary btn-block"> <%= link_to "Mon espace événement" , event_attendances_path(@event) %> </p>
+        <% else %>
+         <p class="btn btn-lg btn-primary btn-block"> <%= link_to "Inscris toi !" , new_event_charge_path(@event) %> </p>
+        <% end %>
+      <i class="fas fa-share-alt text-muted float-right p-1 my-1" data-toggle="tooltip" data-placement="top" title="Share this post"></i>
+      <i class="fas fa-heart text-muted float-right p-1 my-1 mr-3" data-toggle="tooltip" data-placement="top" title="I like it"></i>
+        </div>
+</div>
+</div>

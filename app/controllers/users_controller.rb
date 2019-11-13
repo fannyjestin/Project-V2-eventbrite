@@ -1,19 +1,23 @@
 class UsersController < ApplicationController
+    #before_action :check_if_admin
+    before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
+    before_action :is_owner, only: [:show, :edit, :update, :destroy]
+    before_action :set_user, only: [:show, :edit, :update]
 
-  # GET /users
-  # GET /users.json
+
   def index
     @users = User.all
   end
 
-  # GET /users/1
-  # GET /users/1.json
+
+
   def show
     @user = User.find(params[:id])
     @admin_events = Event.where(admin_id: @user.id)
     (@admin_events.size > 0)? (@admin = true) : (@admin = false)
     @guest_events = Event.joins(:attendances).where('attendances.user_id = ?', @user.id)
     (@guest_events.size > 0)? (@guest = true) : (@guest = false)
+    @avatar = @user.avatar
   end
 
   # GET /users/new
@@ -33,6 +37,7 @@ class UsersController < ApplicationController
                     last_name: params[:last_name],
                     description: params[:description],
                     email: params[:mail])
+    @user.avatar.attach(params[:avatar])
     if params[:password] != params[:confirmpassword]
       flash.now[:danger] = "Passwords must match !"
       render :action => 'new' 
@@ -96,6 +101,13 @@ class UsersController < ApplicationController
         redirect_to "/"
       end
     end
+
+    #def is_admin
+     # if current_user.is_admin == false
+     #   flash[:danger] = "You can't acces this page"
+     #   redirect_to "/" 
+    #  end  
+
 end
 
 
